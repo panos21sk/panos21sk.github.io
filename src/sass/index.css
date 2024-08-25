@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  font-family: "Perfect DOS VGA 437", sans-serif;
+  color: white;
+  font-size: 2vw;
+  font-weight: 100;
+}
+
+#init {
+  display: block;
+}
+
+.ok {
+  color: limegreen;
+}
+
+/*# sourceMappingURL=index.css.map */
