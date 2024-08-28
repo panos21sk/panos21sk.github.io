@@ -2,7 +2,7 @@ body {
   background-color: black;
   font-family: "Perfect DOS VGA 437", sans-serif;
   color: white;
-  font-size: 2vw;
+  font-size: 0.6vw;
   font-weight: 100;
 }
 
@@ -10,8 +10,8 @@ body {
   display: block;
 }
 
-.ok {
-  color: limegreen;
+p {
+  margin: 0%;
 }
 
 /*# sourceMappingURL=index.css.map */
