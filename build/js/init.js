@@ -101,11 +101,13 @@ function init() {
             yield new Promise(r => setTimeout(r, parseInt(Math.random().toFixed(2)) * 1000)); //ms
             initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(pelem);
         }
+        //timeout and clear
         yield new Promise(r => setTimeout(r, 750)); //ms
         console.log("clear"); //!
         while (initbody === null || initbody === void 0 ? void 0 : initbody.firstChild) {
             initbody.removeChild(initbody === null || initbody === void 0 ? void 0 : initbody.lastChild); // the ! means that initbody.lastChild is never null
         }
+        //more predefined displays
         for (let i = 0; i < 2; i++) {
             let pelem = document.createElement("p");
             switch (i) {

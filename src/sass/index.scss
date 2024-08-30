@@ -14,11 +14,13 @@ p {
 }
 
 .termTextArea {
-    display: inline;
+    display: flex;
+    flex-direction: row;
 }
-
 textarea{
     background-color: black;
     margin: 0%;
-    border: none;
+    color: white;
 }
+.termTextArea textarea { flex-grow: 10; }
+

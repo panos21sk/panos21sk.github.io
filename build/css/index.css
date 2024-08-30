@@ -14,4 +14,19 @@ p {
   margin: 0%;
 }
 
+.termTextArea {
+  display: flex;
+  flex-direction: row;
+}
+
+textarea {
+  background-color: black;
+  margin: 0%;
+  color: white;
+}
+
+.termTextArea textarea {
+  flex-grow: 10;
+}
+
 /*# sourceMappingURL=index.css.map */
