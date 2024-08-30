@@ -88,19 +88,37 @@ systemd_services.set("Started Network Manager.", 1);
 systemd_services.set("Reached target Multi-User.", 1);
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("func-exec");
+        console.log("func-exec"); //!
         //iterate through each systemd service in map
         for (let [k, v] of systemd_services) {
             let pelem = document.createElement("p");
             if (v == 0) {
                 pelem.innerHTML = "      " + k;
-                //test
-                initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(document.createElement("p"));
             }
             else if (v == 1) {
                 pelem.innerHTML = "[ <span style=\"color:#3adb3a\">OK</span> ]" + k;
             }
-            yield new Promise(r => setTimeout(r, parseInt(Math.random().toFixed(2)) * 1000));
+            yield new Promise(r => setTimeout(r, parseInt(Math.random().toFixed(2)) * 1000)); //ms
+            initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(pelem);
+        }
+        yield new Promise(r => setTimeout(r, 750)); //ms
+        console.log("clear"); //!
+        while (initbody === null || initbody === void 0 ? void 0 : initbody.firstChild) {
+            initbody.removeChild(initbody === null || initbody === void 0 ? void 0 : initbody.lastChild); // the ! means that initbody.lastChild is never null
+        }
+        for (let i = 0; i < 2; i++) {
+            let pelem = document.createElement("p");
+            switch (i) {
+                case 0:
+                    pelem.innerHTML = "PanUx 1.0";
+                    break;
+                case 1:
+                    pelem.innerHTML = "Kenrel 6.10.5-arch1-1 on an x86_64(ttyS0)";
+                    break;
+                case 2:
+                    pelem.innerHTML = "";
+                    break;
+            }
             initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(pelem);
         }
     });

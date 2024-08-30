@@ -78,7 +78,7 @@ systemd_services.set("Started Network Manager.", 1)
 systemd_services.set("Reached target Multi-User.", 1)
 
 async function init(){
-    console.log("func-exec");
+    console.log("func-exec"); //!
     //iterate through each systemd service in map
     for(let [k,v] of systemd_services){
         let pelem : HTMLElement = document.createElement("p");
@@ -88,11 +88,33 @@ async function init(){
         else if (v == 1){
             pelem.innerHTML = "[ <span style=\"color:#3adb3a\">OK</span> ]" + k;
         }
-        await new Promise(r => setTimeout(r,   parseInt(Math.random().toFixed(2))   * 1000))
+        await new Promise(r => setTimeout(r,   parseInt(Math.random().toFixed(2))   * 1000)) //ms
         initbody?.appendChild(pelem);
     }
 
+    //timeout and clear
+    await new Promise(r => setTimeout(r, 750)) //ms
+    console.log("clear") //!
+    while (initbody?.firstChild) {
+        initbody.removeChild(initbody?.lastChild!); // the ! means that initbody.lastChild is never null
+    }
 
+    //more predefined displays
+    for(let i: number = 0; i < 2; i++){
+        let pelem : HTMLElement = document.createElement("p")
+        switch(i){
+            case 0: 
+                pelem.innerHTML = "PanUx 1.0";
+                break;
+            case 1:
+                pelem.innerHTML = "Kenrel 6.10.5-arch1-1 on an x86_64(ttyS0)"
+                break;
+            case 2:
+                pelem.innerHTML = ""
+                break;
+        }
+        initbody?.appendChild(pelem);
+    }
 }
 
 init();
