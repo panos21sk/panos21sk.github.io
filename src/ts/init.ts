@@ -79,6 +79,18 @@ systemd_services.set("Reached target Multi-User.", 1)
 
 async function init(){
     console.log("func-exec"); //!
+
+    //const nameTextArea: HTMLElement | null = document.getElementById("name");
+    //const passwdTextArea: HTMLElement | null = document.getElementById("passwd");
+    //console.log(nameTextArea?.innerHTML)
+    //if(nameTextArea != undefined){
+    //    console.log("making name & passwd hidden") //!
+    //    nameTextArea.style.visibility = "hidden";
+    //}
+    // if(passwdTextArea != undefined){
+    //     passwdTextArea.style.visibility = "hidden"
+    // }
+
     //iterate through each systemd service in map
     for(let [k,v] of systemd_services){
         let pelem : HTMLElement = document.createElement("p");
@@ -100,7 +112,7 @@ async function init(){
     }
 
     //more predefined displays
-    for(let i: number = 0; i < 2; i++){
+    for(let i: number = 0; i <= 2; i++){
         let pelem : HTMLElement = document.createElement("p")
         switch(i){
             case 0: 
@@ -110,11 +122,67 @@ async function init(){
                 pelem.innerHTML = "Kenrel 6.10.5-arch1-1 on an x86_64(ttyS0)"
                 break;
             case 2:
-                pelem.innerHTML = ""
+                pelem.innerHTML = "<br></br>"
                 break;
         }
         initbody?.appendChild(pelem);
     }
+
+    // html in js
+    const nameTextArea: HTMLElement | null = document.createElement("div")
+    nameTextArea.innerHTML = '\
+        <p>client login: </p>\
+        <textarea autofocus rows="1"></textarea>\
+    ';
+    nameTextArea.className = "termTextArea"
+    nameTextArea.id = "name"
+
+    const passwdTextArea: HTMLElement | null = document.createElement("div")
+    passwdTextArea.innerHTML = '\
+        <p>passwd: </p>\
+        <textarea rows="1"></textarea>\
+    ';
+    passwdTextArea.className = "termTextArea"
+    passwdTextArea.id = "passwd"
+    passwdTextArea.style.visibility = "hidden"
+
+    initbody?.appendChild(nameTextArea);
+    initbody?.appendChild(passwdTextArea);
+
+    //used to be namepasswd.ts
+    const passwdInputTextArea = passwdTextArea?.lastElementChild;
+
+
+    nameTextArea?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            if((<HTMLInputElement>nameTextArea).value != ""){
+                var name: string = (<HTMLInputElement>nameTextArea).value;
+            }
+            else{
+                var name: string = ""
+            }
+
+
+            if(name != "" && name != undefined && name != null){
+                //nameTextArea.setAttribute("disabled", "")
+                //TODO: disable nametextarea here
+
+                if(passwdTextArea != null){
+                    passwdTextArea.style.visibility = "visible"
+                }
+                console.log((<HTMLInputElement>nameTextArea).value);
+                (<HTMLInputElement>passwdInputTextArea).focus()//#Check if working
+            }
+            else {
+                console.log("Name is undefined")
+            }
+        }
+    });
+
+
+
+
+    //setState("namepasswd");
 }
 
 init();
