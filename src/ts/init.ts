@@ -112,7 +112,7 @@ async function init(){
     }
 
     //more predefined displays
-    for(let i: number = 0; i < 2; i++){
+    for(let i: number = 0; i <= 2; i++){
         let pelem : HTMLElement = document.createElement("p")
         switch(i){
             case 0: 
@@ -122,13 +122,13 @@ async function init(){
                 pelem.innerHTML = "Kenrel 6.10.5-arch1-1 on an x86_64(ttyS0)"
                 break;
             case 2:
-                pelem.innerHTML = ""
+                pelem.innerHTML = "<br></br>"
                 break;
         }
         initbody?.appendChild(pelem);
     }
 
-    // htmml in js
+    // html in js
     const nameTextArea: HTMLElement | null = document.createElement("div")
     nameTextArea.innerHTML = '\
         <p>client login: </p>\
@@ -155,7 +155,6 @@ async function init(){
 
     nameTextArea?.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            console.log( (<HTMLInputElement>nameTextArea).value )
             if((<HTMLInputElement>nameTextArea).value != ""){
                 var name: string = (<HTMLInputElement>nameTextArea).value;
             }
@@ -164,13 +163,18 @@ async function init(){
             }
 
 
-            if(name != ""){
-                nameTextArea.setAttribute("disabled", "disabled")
+            if(name != "" && name != undefined && name != null){
+                //nameTextArea.setAttribute("disabled", "")
+                //TODO: disable nametextarea here
+
                 if(passwdTextArea != null){
                     passwdTextArea.style.visibility = "visible"
                 }
-                console.log("making passwd visible");
+                console.log((<HTMLInputElement>nameTextArea).value);
                 (<HTMLInputElement>passwdInputTextArea).focus()//#Check if working
+            }
+            else {
+                console.log("Name is undefined")
             }
         }
     });

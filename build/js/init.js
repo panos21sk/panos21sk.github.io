@@ -118,7 +118,7 @@ function init() {
             initbody.removeChild(initbody === null || initbody === void 0 ? void 0 : initbody.lastChild); // the ! means that initbody.lastChild is never null
         }
         //more predefined displays
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i <= 2; i++) {
             let pelem = document.createElement("p");
             switch (i) {
                 case 0:
@@ -128,15 +128,12 @@ function init() {
                     pelem.innerHTML = "Kenrel 6.10.5-arch1-1 on an x86_64(ttyS0)";
                     break;
                 case 2:
-                    pelem.innerHTML = "";
+                    pelem.innerHTML = "<br></br>";
                     break;
             }
             initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(pelem);
         }
-        // if(nameTextArea !=null){
-        //     console.log("making name visible")
-        //     nameTextArea.style.visibility = "visible"
-        // }
+        // html in js
         const nameTextArea = document.createElement("div");
         nameTextArea.innerHTML = '\
         <p>client login: </p>\
@@ -154,23 +151,27 @@ function init() {
         passwdTextArea.style.visibility = "hidden";
         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(nameTextArea);
         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
-        //namepasswd.ts
+        //used to be namepasswd.ts
         const passwdInputTextArea = passwdTextArea === null || passwdTextArea === void 0 ? void 0 : passwdTextArea.lastElementChild;
         nameTextArea === null || nameTextArea === void 0 ? void 0 : nameTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                console.log(nameTextArea.value);
                 if (nameTextArea.value != "") {
                     var name = nameTextArea.value;
                 }
                 else {
                     var name = "";
                 }
-                if (name != "") {
+                if (name != "" && name != undefined && name != null) {
+                    //nameTextArea.setAttribute("disabled", "")
+                    //TODO: disable nametextarea here
                     if (passwdTextArea != null) {
                         passwdTextArea.style.visibility = "visible";
                     }
-                    console.log("making passwd visible");
+                    console.log(nameTextArea.value);
                     passwdInputTextArea.focus(); //#Check if working
+                }
+                else {
+                    console.log("Name is undefined");
                 }
             }
         });
