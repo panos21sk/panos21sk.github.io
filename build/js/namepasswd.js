@@ -12,9 +12,11 @@ nameInput === null || nameInput === void 0 ? void 0 : nameInput.addEventListener
             var name = "";
         }
         if (name != "") {
-            passwdInput === null || passwdInput === void 0 ? void 0 : passwdInput.removeAttribute("hidden");
+            if (passwdInput != null) {
+                passwdInput.style.visibility = "visible";
+            }
             console.log("making passwd visible");
-            passwdInputTextArea === null || passwdInputTextArea === void 0 ? void 0 : passwdInputTextArea.setAttribute("autofocus", ""); //#Check if working
+            passwdInputTextArea.focus(); //#Check if working
         }
     }
 });

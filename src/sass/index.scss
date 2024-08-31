@@ -21,6 +21,11 @@ textarea{
     background-color: black;
     margin: 0%;
     color: white;
+    font-size: 0.6vw;
+    font-weight: 100;
+    font-family: 'Perfect DOS VGA 437', sans-serif;
+    border: none;
+    outline: none;
 }
 .termTextArea textarea { flex-grow: 10; }
 

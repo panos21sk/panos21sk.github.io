@@ -79,6 +79,18 @@ systemd_services.set("Reached target Multi-User.", 1)
 
 async function init(){
     console.log("func-exec"); //!
+
+    //const nameTextArea: HTMLElement | null = document.getElementById("name");
+    //const passwdTextArea: HTMLElement | null = document.getElementById("passwd");
+    //console.log(nameTextArea?.innerHTML)
+    //if(nameTextArea != undefined){
+    //    console.log("making name & passwd hidden") //!
+    //    nameTextArea.style.visibility = "hidden";
+    //}
+    // if(passwdTextArea != undefined){
+    //     passwdTextArea.style.visibility = "hidden"
+    // }
+
     //iterate through each systemd service in map
     for(let [k,v] of systemd_services){
         let pelem : HTMLElement = document.createElement("p");
@@ -115,6 +127,58 @@ async function init(){
         }
         initbody?.appendChild(pelem);
     }
+
+    // htmml in js
+    const nameTextArea: HTMLElement | null = document.createElement("div")
+    nameTextArea.innerHTML = '\
+        <p>client login: </p>\
+        <textarea autofocus rows="1"></textarea>\
+    ';
+    nameTextArea.className = "termTextArea"
+    nameTextArea.id = "name"
+
+    const passwdTextArea: HTMLElement | null = document.createElement("div")
+    passwdTextArea.innerHTML = '\
+        <p>passwd: </p>\
+        <textarea rows="1"></textarea>\
+    ';
+    passwdTextArea.className = "termTextArea"
+    passwdTextArea.id = "passwd"
+    passwdTextArea.style.visibility = "hidden"
+
+    initbody?.appendChild(nameTextArea);
+    initbody?.appendChild(passwdTextArea);
+
+    //used to be namepasswd.ts
+    const passwdInputTextArea = passwdTextArea?.lastElementChild;
+
+
+    nameTextArea?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            console.log( (<HTMLInputElement>nameTextArea).value )
+            if((<HTMLInputElement>nameTextArea).value != ""){
+                var name: string = (<HTMLInputElement>nameTextArea).value;
+            }
+            else{
+                var name: string = ""
+            }
+
+
+            if(name != ""){
+                nameTextArea.setAttribute("disabled", "disabled")
+                if(passwdTextArea != null){
+                    passwdTextArea.style.visibility = "visible"
+                }
+                console.log("making passwd visible");
+                (<HTMLInputElement>passwdInputTextArea).focus()//#Check if working
+            }
+        }
+    });
+
+
+
+
+    //setState("namepasswd");
 }
 
 init();
