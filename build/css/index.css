@@ -28,6 +28,7 @@ textarea {
   font-family: "Perfect DOS VGA 437", sans-serif;
   border: none;
   outline: none;
+  resize: none;
 }
 
 .termTextArea textarea {

@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.commandInline = commandInline;
 function parseCommand(command) {
     let commandArr = command.split(" ");
     // let commandMap: Map<string, number> = new Map()//k:command, v:index 
@@ -15,5 +17,6 @@ function parseCommand(command) {
     }
 }
 function commandInline() {
+    let cmd = document.createElement('div');
 }
 //# sourceMappingURL=command.js.map

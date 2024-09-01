@@ -16,5 +16,8 @@ function parseCommand(command: string){
 }
 
 function commandInline(){
-
+    let cmd: HTMLElement = document.createElement('div')
+    
 }
+
+export { commandInline }

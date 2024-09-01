@@ -150,34 +150,38 @@ async function init(){
     initbody?.appendChild(passwdTextArea);
 
     //used to be namepasswd.ts
-    const passwdInputTextArea = passwdTextArea?.lastElementChild;
+    const passwdInputTextArea = passwdTextArea.lastElementChild;
+    const nameInputTextArea = nameTextArea.lastElementChild;
 
 
-    nameTextArea?.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            if((<HTMLInputElement>nameTextArea).value != ""){
-                var name: string = (<HTMLInputElement>nameTextArea).value;
-            }
-            else{
-                var name: string = ""
-            }
-
-
-            if(name != "" && name != undefined && name != null){
-                //nameTextArea.setAttribute("disabled", "")
-                //TODO: disable nametextarea here
+    nameInputTextArea?.addEventListener('keydown', (event) => {
+        if ((<KeyboardEvent>event).key === 'Enter') {
+            //TODO: Ensure you cant pass without assigning a name
+            if((<HTMLInputElement>nameInputTextArea).value.length > 0){
+                var name: string = (<HTMLInputElement>nameInputTextArea).value;
+                console.log(name + name.length)
+                nameInputTextArea.setAttribute("disabled", "");
 
                 if(passwdTextArea != null){
                     passwdTextArea.style.visibility = "visible"
                 }
-                console.log((<HTMLInputElement>nameTextArea).value);
-                (<HTMLInputElement>passwdInputTextArea).focus()//#Check if working
+
+                (<HTMLInputElement>passwdInputTextArea).focus() //focus on passwd text area
             }
-            else {
-                console.log("Name is undefined")
+            else{
+                (<HTMLInputElement>nameInputTextArea).value = "" // "" string has a length of 1. Mb \n is at fault
+                console.log("Name is undefined: " + (<HTMLInputElement>nameInputTextArea).value);
+                console.log((<HTMLInputElement>nameInputTextArea).value.length);
             }
         }
     });
+
+    passwdInputTextArea?.addEventListener('keydown', (event) => {
+        if ((<KeyboardEvent>event).key === 'Enter') {
+            console.log("entering $name home")
+            passwdInputTextArea.setAttribute("disabled", "");
+        }
+    })
 
 
 

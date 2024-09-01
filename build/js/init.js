@@ -152,27 +152,30 @@ function init() {
         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(nameTextArea);
         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
         //used to be namepasswd.ts
-        const passwdInputTextArea = passwdTextArea === null || passwdTextArea === void 0 ? void 0 : passwdTextArea.lastElementChild;
-        nameTextArea === null || nameTextArea === void 0 ? void 0 : nameTextArea.addEventListener('keydown', (event) => {
+        const passwdInputTextArea = passwdTextArea.lastElementChild;
+        const nameInputTextArea = nameTextArea.lastElementChild;
+        nameInputTextArea === null || nameInputTextArea === void 0 ? void 0 : nameInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                if (nameTextArea.value != "") {
-                    var name = nameTextArea.value;
-                }
-                else {
-                    var name = "";
-                }
-                if (name != "" && name != undefined && name != null) {
-                    //nameTextArea.setAttribute("disabled", "")
-                    //TODO: disable nametextarea here
+                if (nameInputTextArea.value.length > 0) {
+                    var name = nameInputTextArea.value;
+                    console.log(name + name.length);
+                    nameInputTextArea.setAttribute("disabled", "");
                     if (passwdTextArea != null) {
                         passwdTextArea.style.visibility = "visible";
                     }
-                    console.log(nameTextArea.value);
-                    passwdInputTextArea.focus(); //#Check if working
+                    passwdInputTextArea.focus(); //focus on passwd text area
                 }
                 else {
-                    console.log("Name is undefined");
+                    nameInputTextArea.value = nameInputTextArea.value.substring(0, 0); // "" string has a length of 1. Mb \n is at fault
+                    console.log("Name is undefined: " + nameInputTextArea.value);
+                    console.log(nameInputTextArea.value.length);
                 }
+            }
+        });
+        passwdInputTextArea === null || passwdInputTextArea === void 0 ? void 0 : passwdInputTextArea.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                console.log("entering $name home");
+                passwdInputTextArea.setAttribute("disabled", "");
             }
         });
         //setState("namepasswd");
