@@ -150,13 +150,13 @@ function init() {
         passwdTextArea.id = "passwd";
         passwdTextArea.style.visibility = "hidden";
         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(nameTextArea);
-        initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
         //used to be namepasswd.ts
         const passwdInputTextArea = passwdTextArea.lastElementChild;
         const nameInputTextArea = nameTextArea.lastElementChild;
         nameInputTextArea === null || nameInputTextArea === void 0 ? void 0 : nameInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
-                if (nameInputTextArea.value.length > 0) {
+                if (nameInputTextArea.value.length > 0 && !/\r|\n/.exec(nameInputTextArea.value)) {
+                    initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
                     var name = nameInputTextArea.value;
                     console.log(name + name.length);
                     nameInputTextArea.setAttribute("disabled", "");
@@ -166,19 +166,63 @@ function init() {
                     passwdInputTextArea.focus(); //focus on passwd text area
                 }
                 else {
-                    nameInputTextArea.value = nameInputTextArea.value.substring(0, 0); // "" string has a length of 1. Mb \n is at fault
-                    console.log("Name is undefined: " + nameInputTextArea.value);
-                    console.log(nameInputTextArea.value.length);
+                    console.log("Name cant be empty");
+                    //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
+                    nameInputTextArea.setAttribute("disabled", "");
+                    createNewName();
                 }
             }
         });
+        //now i know this implementation is shittily written, cant be arsed to change it, and the avg end user wont care about how itll work
+        //even if it is easily publicly accessible. I shouldve put it in a while loop until the username gets valited or implented it recursively in
+        //a similar manner as i did here from the start instead of having to backtrack.
+        //I was just too lazy to actually check out how no-username logins behaved on a tty session. 
+        //I thought it didnt let you proceed until you put in a username or thrw a warning. My bad yall
+        function createNewName() {
+            let afterNameTextArea = document.createElement("div");
+            afterNameTextArea.innerHTML = '\
+        <p>client login: </p>\
+        <textarea autofocus rows="1"></textarea>\
+        ';
+            afterNameTextArea.className = "termTextArea";
+            afterNameTextArea.id = "afterName";
+            initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(afterNameTextArea);
+            const afterNameInputTextArea = afterNameTextArea.lastElementChild;
+            afterNameInputTextArea.focus();
+            afterNameInputTextArea === null || afterNameInputTextArea === void 0 ? void 0 : afterNameInputTextArea.addEventListener("keydown", (event) => {
+                if (event.key === 'Enter') {
+                    //replace all linebreaks with empty string
+                    afterNameInputTextArea.value = afterNameInputTextArea.value.replace(/(\r\n|\n|\r)/gm, "");
+                    if (afterNameInputTextArea.value.length > 0 && !/\r|\n/.exec(afterNameInputTextArea.value)) {
+                        initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
+                        var name = afterNameInputTextArea.value;
+                        console.log(name + name.length);
+                        if (afterNameInputTextArea != null) {
+                            afterNameInputTextArea.setAttribute("disabled", "");
+                        }
+                        if (passwdTextArea != null) {
+                            passwdTextArea.style.visibility = "visible";
+                        }
+                        passwdInputTextArea.focus(); //focus on passwd text area
+                    }
+                    else {
+                        console.log("aftername is empty");
+                        console.log("length: " + afterNameInputTextArea.value.length);
+                        console.log("val: " + afterNameInputTextArea.value);
+                        if (afterNameInputTextArea != null) {
+                            afterNameInputTextArea.setAttribute("disabled", "");
+                        }
+                        createNewName();
+                    }
+                }
+            });
+        }
         passwdInputTextArea === null || passwdInputTextArea === void 0 ? void 0 : passwdInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 console.log("entering $name home");
                 passwdInputTextArea.setAttribute("disabled", "");
             }
         });
-        //setState("namepasswd");
     });
 }
 init();

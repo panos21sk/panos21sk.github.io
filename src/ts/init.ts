@@ -147,17 +147,15 @@ async function init(){
     passwdTextArea.style.visibility = "hidden"
 
     initbody?.appendChild(nameTextArea);
-    initbody?.appendChild(passwdTextArea);
 
     //used to be namepasswd.ts
-    const passwdInputTextArea = passwdTextArea.lastElementChild;
-    const nameInputTextArea = nameTextArea.lastElementChild;
-
+    const passwdInputTextArea: Element | null  = passwdTextArea.lastElementChild;
+    const nameInputTextArea: Element | null  = nameTextArea.lastElementChild;
 
     nameInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
-            //TODO: Ensure you cant pass without assigning a name
-            if((<HTMLInputElement>nameInputTextArea).value.length > 0){
+            if((<HTMLInputElement>nameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>nameInputTextArea).value)){
+                initbody?.appendChild(passwdTextArea);
                 var name: string = (<HTMLInputElement>nameInputTextArea).value;
                 console.log(name + name.length)
                 nameInputTextArea.setAttribute("disabled", "");
@@ -169,12 +167,63 @@ async function init(){
                 (<HTMLInputElement>passwdInputTextArea).focus() //focus on passwd text area
             }
             else{
-                (<HTMLInputElement>nameInputTextArea).value = "" // "" string has a length of 1. Mb \n is at fault
-                console.log("Name is undefined: " + (<HTMLInputElement>nameInputTextArea).value);
-                console.log((<HTMLInputElement>nameInputTextArea).value.length);
+                console.log("Name cant be empty")
+                //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
+                nameInputTextArea.setAttribute("disabled", "")
+                createNewName();
             }
         }
     });
+
+    //now i know this implementation is shittily written, cant be arsed to change it, and the avg end user wont care about how itll work
+    //even if it is easily publicly accessible. I shouldve put it in a while loop until the username gets valited or implented it recursively in
+    //a similar manner as i did here from the start instead of having to backtrack.
+    //I was just too lazy to actually check out how no-username logins behaved on a tty session. 
+    //I thought it didnt let you proceed until you put in a username or thrw a warning. My bad yall
+    function createNewName(){
+        let afterNameTextArea: HTMLElement = document.createElement("div")
+        afterNameTextArea.innerHTML = '\
+        <p>client login: </p>\
+        <textarea autofocus rows="1"></textarea>\
+        ';
+        afterNameTextArea.className = "termTextArea"
+        afterNameTextArea.id = "afterName"
+        initbody?.appendChild(afterNameTextArea);
+        const afterNameInputTextArea: Element | null= afterNameTextArea.lastElementChild;
+        (<HTMLInputElement>afterNameInputTextArea).focus()
+
+        afterNameInputTextArea?.addEventListener("keydown", (event) => {
+        if ((<KeyboardEvent>event).key === 'Enter') {
+            //replace all linebreaks with empty string
+            (<HTMLInputElement>afterNameInputTextArea).value = (<HTMLInputElement>afterNameInputTextArea).value.replace(/(\r\n|\n|\r)/gm, "");
+            
+            if((<HTMLInputElement>afterNameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>afterNameInputTextArea).value)){
+                initbody?.appendChild((<Node>passwdTextArea)); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
+                var name: string = (<HTMLInputElement>afterNameInputTextArea).value;
+                console.log(name + name.length)
+                if(afterNameInputTextArea != null){
+                    afterNameInputTextArea.setAttribute("disabled", "");
+                }
+
+                if(passwdTextArea != null){
+                    passwdTextArea.style.visibility = "visible"
+                }
+    
+                (<HTMLInputElement>passwdInputTextArea).focus() //focus on passwd text area
+
+                } else {
+                    console.log("aftername is empty")
+                    console.log("length: "+ (<HTMLInputElement>afterNameInputTextArea).value.length)
+                    console.log("val: " + (<HTMLInputElement>afterNameInputTextArea).value)
+                    if(afterNameInputTextArea != null){
+                        afterNameInputTextArea.setAttribute("disabled", "")
+                    }
+                    createNewName();
+                }
+            }
+        })
+    }
+    
 
     passwdInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
@@ -182,11 +231,6 @@ async function init(){
             passwdInputTextArea.setAttribute("disabled", "");
         }
     })
-
-
-
-
-    //setState("namepasswd");
 }
 
 init();
