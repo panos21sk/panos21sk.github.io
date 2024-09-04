@@ -31,3 +31,14 @@ textarea{
 }
 .termTextArea textarea { flex-grow: 10; }
 
+@media (max-width: 800px) {
+    body {
+        font-size: 2vw;
+    font-weight: 100;
+    }
+    textarea{
+        font-size: 2vw;
+    font-weight: 100;
+    }
+}
+
