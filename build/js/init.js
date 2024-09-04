@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { commandInline } from "./command_line.js";
 const initbody = document.getElementById("init");
 const systemd_services = new Map();
 //0: starting service, 1: OK success code, started -- GoTo ln 78
@@ -153,11 +153,12 @@ function init() {
         //used to be namepasswd.ts
         const passwdInputTextArea = passwdTextArea.lastElementChild;
         const nameInputTextArea = nameTextArea.lastElementChild;
+        let name = ""; //global bc why not
         nameInputTextArea === null || nameInputTextArea === void 0 ? void 0 : nameInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 if (nameInputTextArea.value.length > 0 && !/\r|\n/.exec(nameInputTextArea.value)) {
                     initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
-                    var name = nameInputTextArea.value;
+                    name = nameInputTextArea.value;
                     console.log(name + name.length);
                     nameInputTextArea.setAttribute("disabled", "");
                     if (passwdTextArea != null) {
@@ -195,7 +196,7 @@ function init() {
                     afterNameInputTextArea.value = afterNameInputTextArea.value.replace(/(\r\n|\n|\r)/gm, "");
                     if (afterNameInputTextArea.value.length > 0 && !/\r|\n/.exec(afterNameInputTextArea.value)) {
                         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
-                        var name = afterNameInputTextArea.value;
+                        name = afterNameInputTextArea.value;
                         console.log(name + name.length);
                         if (afterNameInputTextArea != null) {
                             afterNameInputTextArea.setAttribute("disabled", "");
@@ -221,6 +222,7 @@ function init() {
             if (event.key === 'Enter') {
                 console.log("entering $name home");
                 passwdInputTextArea.setAttribute("disabled", "");
+                commandInline(name);
             }
         });
     });

@@ -1,3 +1,5 @@
+import { commandInline } from "./command_line.js"
+
 const initbody : HTMLElement | null = document.getElementById("init")
 const systemd_services: Map<string, number> = new Map()
     //0: starting service, 1: OK success code, started -- GoTo ln 78
@@ -152,11 +154,13 @@ async function init(){
     const passwdInputTextArea: Element | null  = passwdTextArea.lastElementChild;
     const nameInputTextArea: Element | null  = nameTextArea.lastElementChild;
 
+    let name: string = ""; //global bc why not
+
     nameInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
             if((<HTMLInputElement>nameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>nameInputTextArea).value)){
                 initbody?.appendChild(passwdTextArea);
-                var name: string = (<HTMLInputElement>nameInputTextArea).value;
+                name = (<HTMLInputElement>nameInputTextArea).value;
                 console.log(name + name.length)
                 nameInputTextArea.setAttribute("disabled", "");
 
@@ -199,7 +203,7 @@ async function init(){
             
             if((<HTMLInputElement>afterNameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>afterNameInputTextArea).value)){
                 initbody?.appendChild((<Node>passwdTextArea)); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
-                var name: string = (<HTMLInputElement>afterNameInputTextArea).value;
+                name = (<HTMLInputElement>afterNameInputTextArea).value;
                 console.log(name + name.length)
                 if(afterNameInputTextArea != null){
                     afterNameInputTextArea.setAttribute("disabled", "");
@@ -229,6 +233,7 @@ async function init(){
         if ((<KeyboardEvent>event).key === 'Enter') {
             console.log("entering $name home")
             passwdInputTextArea.setAttribute("disabled", "");
+            commandInline(name)
         }
     })
 }
