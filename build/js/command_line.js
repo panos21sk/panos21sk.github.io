@@ -18,10 +18,10 @@ function parseCommand(command) {
 function commandInline(uname) {
     const initbody = document.getElementById("init");
     const cmd = document.createElement('div');
-    cmd.innerHTML = '\
+    cmd.innerHTML = `\
         <p>[ ${uname}@client ]</p>\
         <textarea autofocus rows="1"></textarea>\
-        ';
+        `;
     cmd.className = "termTextArea";
     const cmdTextArea = cmd.lastElementChild;
     initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(cmd);

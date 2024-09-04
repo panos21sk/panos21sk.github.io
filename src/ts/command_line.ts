@@ -21,10 +21,10 @@ function commandInline(uname: string){
     const initbody : HTMLElement | null = document.getElementById("init");
 
     const cmd: HTMLElement = document.createElement('div')
-    cmd.innerHTML = '\
+    cmd.innerHTML = `\
         <p>[ ${uname}@client ]</p>\
         <textarea autofocus rows="1"></textarea>\
-        ';
+        `;
     cmd.className = "termTextArea"
 
     const cmdTextArea: Element | null = cmd.lastElementChild; 

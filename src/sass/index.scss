@@ -29,15 +29,17 @@ textarea{
     resize: none;
     //TODO: align textarea text with p text
 }
-.termTextArea textarea { flex-grow: 10; }
+.termTextArea textarea { 
+    flex-grow: 10; 
+}
 
 @media (max-width: 800px) {
     body {
-        font-size: 2vw;
+    font-size: 2vw;
     font-weight: 100;
     }
     textarea{
-        font-size: 2vw;
+    font-size: 2vw;
     font-weight: 100;
     }
 }
