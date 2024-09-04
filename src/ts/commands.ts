@@ -1,6 +1,18 @@
+//helper functions
 function createP(content: string){
 
 }
+function checkIsOption(string: string): boolean{
+    return true;
+}
+
+
+//commands
+function help(){
+
+}
+
+function man(args: string){}
 
 function whoami(name: string){
 

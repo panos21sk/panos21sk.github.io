@@ -22,7 +22,7 @@ function commandInline(uname: string){
 
     const cmd: HTMLElement = document.createElement('div')
     cmd.innerHTML = `\
-        <p>[ ${uname}@client ]</p>\
+        <p>[ ${uname}@client ]$</p>\
         <textarea autofocus rows="1"></textarea>\
         `;
     cmd.className = "termTextArea"
@@ -38,6 +38,7 @@ function commandInline(uname: string){
                 console.log(command + command.length)
                 cmdTextArea.setAttribute("disabled", "");
                 parseCommand(command)
+                commandInline(uname)
             }
             else{
                 //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
