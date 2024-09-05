@@ -233,6 +233,9 @@ async function init(){
         if ((<KeyboardEvent>event).key === 'Enter') {
             console.log("entering $name home")
             passwdInputTextArea.setAttribute("disabled", "");
+            const helpP: HTMLElement = document.createElement("p")
+            helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands."
+            initbody?.appendChild(helpP)
             commandInline(name)
         }
     })

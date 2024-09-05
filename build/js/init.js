@@ -222,6 +222,9 @@ function init() {
             if (event.key === 'Enter') {
                 console.log("entering $name home");
                 passwdInputTextArea.setAttribute("disabled", "");
+                const helpP = document.createElement("p");
+                helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands.";
+                initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(helpP);
                 commandInline(name);
             }
         });
