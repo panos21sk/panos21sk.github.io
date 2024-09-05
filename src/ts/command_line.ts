@@ -14,8 +14,9 @@ function parseCommand(command: string, uname: string){
 
         case "echo":
             let echoArg: string = "";
-            for(let i = 1; i <= commandArr.length; i++){
+            for(let i = 1; i < commandArr.length; i++){
                 echoArg += commandArr[i]
+                echoArg += ""
             }
             echo(echoArg)
             break;
@@ -33,7 +34,7 @@ function parseCommand(command: string, uname: string){
             break;
 
         default:
-            createP(`${command[0]}: command not found`)
+            createP(`${commandArr[0]}: command not found`)
     }
 }
 

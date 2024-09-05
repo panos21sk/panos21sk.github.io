@@ -12,8 +12,9 @@ function parseCommand(command, uname) {
             break;
         case "echo":
             let echoArg = "";
-            for (let i = 1; i <= commandArr.length; i++) {
+            for (let i = 1; i < commandArr.length; i++) {
                 echoArg += commandArr[i];
+                echoArg += "";
             }
             echo(echoArg);
             break;
@@ -27,7 +28,7 @@ function parseCommand(command, uname) {
             help();
             break;
         default:
-            createP(`${command[0]}: command not found`);
+            createP(`${commandArr[0]}: command not found`);
     }
 }
 //TODO: enter -> parse command -> execute imported function (ie bash command recreation) -> recursively create new cmdline elem
