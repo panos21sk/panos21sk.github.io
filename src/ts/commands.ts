@@ -36,6 +36,8 @@ function man(args: string){
     switch(args){
         case "man":
             createP("")
+        default:
+            createP(`No manual entry for ${args}`)
     }
 }
 
