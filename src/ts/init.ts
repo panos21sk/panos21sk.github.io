@@ -1,4 +1,5 @@
 import { commandInline } from "./command_line.js"
+import { root, folder} from "folders.js"
 
 const initbody : HTMLElement | null = document.getElementById("init")
 const systemd_services: Map<string, number> = new Map()
@@ -239,6 +240,9 @@ async function init(){
             commandInline(name)
         }
     })
+
+    let userFolder: folder = root.content[1].content[0] as folder
+    userFolder.name = name 
 }
 
 init();

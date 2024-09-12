@@ -1,6 +1,6 @@
 import { root } from "./folders.js";
 //helper functions
-let CurrDir = root.content[1] /*home*/.content[0] /*uname */; // as folder so it doesnt throw: string | file | folder not assignable to folder
+let CurrDir = root.content[1] /*home*/.content[0] /*uname*/; // as folder so it doesnt throw: string | file | folder not assignable to folder
 function createP(content) {
     //create p element quickly
     const newP = document.createElement("p");
@@ -71,10 +71,27 @@ function whoami(name) {
     createP(name);
 }
 function cd(args) {
+    CurrDir.content.forEach((f) => {
+        if (args == f.name) {
+            if (Array.isArray(f.content)) { //check if f is folder instead of file via checking whether content is an array as opposed to a string
+                CurrDir = f;
+            }
+        }
+    });
 }
 function ls( /*opts?: string, args?: string*/) {
+    CurrDir.content.forEach((f) => {
+        createP(f.name);
+    });
 }
 function cat(args) {
+    CurrDir.content.forEach((f) => {
+        if (args == f.name) {
+            if (!Array.isArray(f.content)) { //check if f is folder instead of file via checking whether content is an array as opposed to a string
+                createP(f.content);
+            }
+        }
+    });
 }
 function echo(args) {
     createP(args);
