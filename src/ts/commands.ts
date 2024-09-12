@@ -85,13 +85,17 @@ function whoami(name: string){
 }
 
 function cd(args: string){
-    CurrDir.content.forEach((f) => {
-        if(args == f.name){
-            if(Array.isArray(f.content)){ //check if f is folder instead of file via checking whether content is an array as opposed to a string
-                CurrDir = f as folder;
+    if(args == ".." && CurrDir.parent != null){
+        CurrDir = CurrDir.parent
+    } else {
+        CurrDir.content.forEach((f) => {
+            if(args == f.name){
+                if(Array.isArray(f.content)){ //check if f is folder instead of file via checking whether content is an array as opposed to a string
+                    CurrDir = f as folder;
+                }
             }
-        }
-    })
+        })
+    }
 }
 
 function ls(/*opts?: string, args?: string*/){

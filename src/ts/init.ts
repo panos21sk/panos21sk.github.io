@@ -237,12 +237,14 @@ async function init(){
             const helpP: HTMLElement = document.createElement("p")
             helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands."
             initbody?.appendChild(helpP)
+
+            let userFolder: folder = root.content[1].content[0] as folder
+            userFolder.name = name 
+
             commandInline(name)
         }
     })
 
-    let userFolder: folder = root.content[1].content[0] as folder
-    userFolder.name = name 
 }
 
 init();

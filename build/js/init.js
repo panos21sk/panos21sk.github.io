@@ -226,11 +226,11 @@ function init() {
                 const helpP = document.createElement("p");
                 helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands.";
                 initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(helpP);
+                let userFolder = root.content[1].content[0];
+                userFolder.name = name;
                 commandInline(name);
             }
         });
-        let userFolder = root.content[1].content[0];
-        userFolder.name = name;
     });
 }
 init();
