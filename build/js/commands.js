@@ -1,15 +1,6 @@
+import { root } from "./folders.js";
 //helper functions
-let CurrDirVal = "~";
-let currDirMap = new Map(); //folder name, subdirs. When using cd check if arg is element of children array of currDir
-//and be able to isolate arg from a pwd + arg entry
-currDirMap.set("~", ["Projects/", "Skills/"]);
-currDirMap.set("$HOME", currDirMap.get("~")); // exp()! means that return val of exp is guaranteed to not be null 
-currDirMap.set("", currDirMap.get("~"));
-currDirMap.set(null, currDirMap.get("~"));
-currDirMap.set("/home/", currDirMap.get("~"));
-currDirMap.set("/", ["bin/", "home/"]);
-currDirMap.set("/bin/", ["help", "man", "pwd", "whoami", "cd", "ls", "cat", "echo", "sudo"]);
-currDirMap.set("/home/", ["username"]); //dk if its important to use actual uname ill pass into commandInline 
+let CurrDir = root.content[1] /*home*/.content[0] /*uname */; // as folder so it doesnt throw: string | file | folder not assignable to folder
 function createP(content) {
     //create p element quickly
     const newP = document.createElement("p");
@@ -18,29 +9,49 @@ function createP(content) {
     initbody === null || initbody === void 0 ? void 0 : initbody.append(newP);
 }
 function checkIsOption(string) {
-    return true;
-}
-function currDir() {
-    return CurrDirVal;
+    return true; //TODO:
 }
 //commands
 function help() {
     createP("Available binaries: man, pwd, whoami, cd, ls, cat, echo, sudo. Type man \'commandName\' to view explanation of what the given command does");
 }
 function man(args) {
+    const manElem = document.createElement("div");
+    manElem.style.height = '100vh';
+    manElem.style.width = '100vw';
+    manElem.style.backgroundColor = "#000000";
+    const initbody = document.getElementById("init");
+    initbody === null || initbody === void 0 ? void 0 : initbody.append(manElem);
     switch (args) {
         case "man":
-            createP("");
+            const newP = document.createElement("p");
+            newP.innerHTML = `
+            NAME:
+                man - an interface to the system reference manuals
+            DESCRIPTION:
+                man shows uses for each command specified
+            `;
+            manElem.appendChild(newP);
+        default:
+            createP(`No manual entry for ${args}`);
+            initbody === null || initbody === void 0 ? void 0 : initbody.removeChild(manElem);
+            break;
     }
+    manElem.addEventListener("keydown", (e) => {
+        if (e.key == "q") {
+            initbody === null || initbody === void 0 ? void 0 : initbody.removeChild(manElem);
+        }
+    });
 }
 function pwd() {
+    createP(`${CurrDir.name}`);
 }
 function whoami(name) {
     createP(name);
 }
 function cd(args) {
 }
-function ls(opts, args) {
+function ls( /*opts?: string, args?: string*/) {
 }
 function cat(args) {
 }
@@ -56,5 +67,5 @@ function clear() {
 function sudo(uname) {
     createP(`${uname} is not in the sudoers file. This incident will be reported.`);
 }
-export { createP, currDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo };
+export { createP, CurrDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo };
 //# sourceMappingURL=commands.js.map

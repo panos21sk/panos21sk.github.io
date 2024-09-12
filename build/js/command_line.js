@@ -1,4 +1,4 @@
-import { currDir, createP, sudo, help, whoami, clear, echo } from "./commands.js";
+import { CurrDir, createP, sudo, help, man, pwd, whoami, cd, ls, cat, clear, echo } from "./commands.js";
 function parseCommand(command, uname) {
     console.log(`parsing command ${command}`);
     let commandArr = command.split(" ");
@@ -24,8 +24,23 @@ function parseCommand(command, uname) {
         case "clear":
             clear();
             break;
+        case "man":
+            man(commandArr[1]);
+            break;
+        case "pwd":
+            pwd();
+            break;
         case "help":
             help();
+            break;
+        case "cd":
+            cd(commandArr[1]);
+            break;
+        case "ls":
+            ls();
+            break;
+        case "cat":
+            cat(commandArr[1]);
             break;
         default:
             createP(`${commandArr[0]}: command not found`);
@@ -37,7 +52,7 @@ function commandInline(uname) {
     const initbody = document.getElementById("init");
     const cmd = document.createElement('div');
     cmd.innerHTML = `\
-        <p>${uname}@client:${currDir()}$ </p>\
+        <p>${uname}@client:${CurrDir.name}$ </p>\
         <textarea autofocus rows="1"></textarea>\
         `;
     cmd.className = "termTextArea";

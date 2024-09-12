@@ -1,16 +1,7 @@
-//helper functions
-let CurrDirVal: string = "~";
-let currDirMap: Map<string | null, Array<string>> = new Map(); //folder name, subdirs. When using cd check if arg is element of children array of currDir
-//and be able to isolate arg from a pwd + arg entry
-currDirMap.set("~", ["Projects/", "Skills/"])
-currDirMap.set("$HOME", currDirMap.get("~")!) // exp()! means that return val of exp is guaranteed to not be null 
-currDirMap.set("", currDirMap.get("~")!)
-currDirMap.set(null, currDirMap.get("~")!)
-currDirMap.set("/home/", currDirMap.get("~")!)
+import { root, file, folder } from "./folders.js"
 
-currDirMap.set("/", ["bin/", "home/"])
-currDirMap.set("/bin/", ["help", "man", "pwd", "whoami", "cd", "ls", "cat", "echo", "sudo"])
-currDirMap.set("/home/", ["username"]) //dk if its important to use actual uname ill pass into commandInline 
+//helper functions
+let CurrDir: folder = root.content[1]/*home*/.content[0]/*uname */ as folder; // as folder so it doesnt throw: string | file | folder not assignable to folder
 
 function createP(content: string){
     //create p element quickly
@@ -20,10 +11,7 @@ function createP(content: string){
     initbody?.append(newP)
 }
 function checkIsOption(string: string): boolean{
-    return true;
-}
-function currDir(): string{
-    return CurrDirVal;
+    return true; //TODO:
 }
 
 
@@ -33,16 +21,38 @@ function help(){
 }
 
 function man(args: string){
+    const manElem = document.createElement("div")
+    manElem.style.height = '100vh'
+    manElem.style.width = '100vw'
+    manElem.style.backgroundColor = "#000000"
+    const initbody = document.getElementById("init");
+    initbody?.append(manElem)
+
     switch(args){
         case "man":
-            createP("")
+            const newP = document.createElement("p")
+            newP.innerHTML = `
+            NAME:
+                man - an interface to the system reference manuals
+            DESCRIPTION:
+                man shows uses for each command specified
+            `;
+            manElem.appendChild(newP)
+            
         default:
             createP(`No manual entry for ${args}`)
+            initbody?.removeChild(manElem)
+            break;
     }
+    manElem.addEventListener("keydown", (e: KeyboardEvent)=>{
+        if(e.key=="q"){
+            initbody?.removeChild(manElem)
+        }
+    })
 }
 
 function pwd(){
-
+    createP(`${CurrDir.name}`)
 }
 
 function whoami(name: string){
@@ -53,7 +63,7 @@ function cd(args: string){
 
 }
 
-function ls(opts: string, args: string){
+function ls(/*opts?: string, args?: string*/){
 
 }
 
@@ -76,4 +86,4 @@ function sudo(uname: string){
     createP(`${uname} is not in the sudoers file. This incident will be reported.`)
 }
 
-export { createP, currDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo }
+export { createP, CurrDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo }

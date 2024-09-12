@@ -1,15 +1,3 @@
-type file = {
-    content: string;
-    name: string;
-    parent: string;
-}
-
-type folder = {
-    content: Array<folder|file>
-    name: string
-    parent: string
-}
-
 //files will be immutable as i wont create mkdir, tee, touch, etc...
 //structure:
 // /
@@ -22,28 +10,25 @@ type folder = {
 // ||||certificates
 // |bin
 // ||all binary files
-
 //name must always be the same as var name to recreate the structure above
-
 //help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo
-const clear: file = { content: "", name: "clear", parent: "bin"}
-const echo: file = { content: "", name: "echo", parent: "bin"}
-const ls: file = { content: "", name: "ls", parent: "bin"}
-const cd: file = { content: "", name: "cd", parent: "bin"}
-const whoami: file = { content: "", name: "whoami", parent: "bin"}
-const pwd: file = { content: "", name: "pwd", parent: "bin"}
-const man: file = { content: "", name: "man", parent: "bin"}
-const help: file = { content: "", name: "help", parent: "bin"}
-const cat: file = { content: "", name: "cat", parent: "bin"}
+const clear = { content: "", name: "clear", parent: "bin" };
+const echo = { content: "", name: "echo", parent: "bin" };
+const ls = { content: "", name: "ls", parent: "bin" };
+const cd = { content: "", name: "cd", parent: "bin" };
+const whoami = { content: "", name: "whoami", parent: "bin" };
+const pwd = { content: "", name: "pwd", parent: "bin" };
+const man = { content: "", name: "man", parent: "bin" };
+const help = { content: "", name: "help", parent: "bin" };
+const cat = { content: "", name: "cat", parent: "bin" };
 //--
-const bin: folder = {
+const bin = {
     content: [cat, cd, clear, echo, help, ls, man, pwd, whoami],
     name: "bin",
     parent: "root"
-}
-
+};
 //have to reassign username's name to user's name
-const about_me: file = {
+const about_me = {
     content: `Hey! Thank you for visiting my site!
     My name is Panagiotis Skoulis. I am (in 2024) an 18 year old self-taught programmer that will soon start studying electrical & computer engineering @ Aristotle university of Thessaloniki
     I knew I wanted to pursue computer since ever since grade 5. That is when I had my first contact with programming. I was cursed, or blessed- rather, with the engineering mindset of: "Hey, I wonder how this works", or "Hey, how could I make something similar?"
@@ -56,8 +41,8 @@ const about_me: file = {
     I still tinker with all my electronics, whether that be resurrecting abandoned hardware or modding my consoles. This is my inspiration to purse hardware.`,
     name: "about_me",
     parent: "Documents"
-}
-const contact: file = {
+};
+const contact = {
     content: `Github: panos21sk
     Email: panos99sk@gmail.com
     Instagram: panos21sk
@@ -65,14 +50,14 @@ const contact: file = {
     email me for my phone number, should you desire it`,
     name: "contact",
     parent: "Documents"
-}
-const certificates: file = {
+};
+const certificates = {
     content: `Astro-Pi, Proficiency in Eng, Mikroi episthmones, Hmerida Kvantikhs fysikhs, Steaming the future, Sololearn Ruby cert`,
     //TODO: Touch it up and link to google drive with imgs of my certs
     name: "certificates",
     parent: "Documents"
-}
-const projects:file = {
+};
+const projects = {
     content: `Term-portfolio: A simple barebones linux install simulation on the web built to display my work, skills and credentials while being geeky and faithful to my inspirations.
     Available on github.com/panos21sl/term-portfolio as a public repo, and open sourced under the MIT license
     
@@ -85,29 +70,28 @@ const projects:file = {
     This was being made with React, ExpressJs and MongoDB. I got quite far in development, finished the UI for the most part and had a working account creation and sign-in system
     Development ceased as I thought this would be hypocritical for a first project. Also self hosted the site for a while with a node server and a DDNS.
     Hosted on a private github repo, contact for access.`,
-
     name: "projects",
     parent: "Documents"
-}
-const Documents: folder = {
+};
+const Documents = {
     content: [about_me, contact, certificates, projects],
     name: "Documents",
     parent: "" //must reassign
-}
-let username: folder = {
+};
+let username = {
     content: [Documents],
     name: "", //must reassign
-    parent: "home" 
-}
-const home: folder = {
+    parent: "home"
+};
+const home = {
     content: [username],
     name: "home",
     parent: "root"
-}
-const root: folder = {
+};
+const root = {
     content: [home, bin],
     name: "root",
     parent: "root"
-}
-
-export {file, folder, root}
+};
+export { root };
+//# sourceMappingURL=folders.js.map
