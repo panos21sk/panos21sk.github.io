@@ -1,13 +1,13 @@
 type file = {
     content: string;
     name: string;
-    parent: string;
+    parent: folder;
 }
 
 type folder = {
     content: Array<folder|file>
     name: string
-    parent: string
+    parent: folder | null;
 }
 
 //files will be immutable as i wont create mkdir, tee, touch, etc...
@@ -24,25 +24,49 @@ type folder = {
 // ||all binary files
 
 //name must always be the same as var name to recreate the structure above
-
-//help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo
-const clear: file = { content: "", name: "clear", parent: "bin"}
-const echo: file = { content: "", name: "echo", parent: "bin"}
-const ls: file = { content: "", name: "ls", parent: "bin"}
-const cd: file = { content: "", name: "cd", parent: "bin"}
-const whoami: file = { content: "", name: "whoami", parent: "bin"}
-const pwd: file = { content: "", name: "pwd", parent: "bin"}
-const man: file = { content: "", name: "man", parent: "bin"}
-const help: file = { content: "", name: "help", parent: "bin"}
-const cat: file = { content: "", name: "cat", parent: "bin"}
-//--
-const bin: folder = {
-    content: [cat, cd, clear, echo, help, ls, man, pwd, whoami],
-    name: "bin",
-    parent: "root"
+const root: folder = {
+    content: [],
+    name: "root",
+    parent: null
 }
 
+//--
+const bin: folder = {
+    content: [],
+    name: "bin",
+    parent: root
+}
+//help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo
+const clear: file = { content: "", name: "clear", parent: bin}
+const echo: file = { content: "", name: "echo", parent: bin}
+const ls: file = { content: "", name: "ls", parent: bin}
+const cd: file = { content: "", name: "cd", parent: bin}
+const whoami: file = { content: "", name: "whoami", parent: bin}
+const pwd: file = { content: "", name: "pwd", parent: bin}
+const man: file = { content: "", name: "man", parent: bin}
+const help: file = { content: "", name: "help", parent: bin}
+const cat: file = { content: "", name: "cat", parent: bin}
+
+bin.content.push(cat, cd, clear, echo, help, ls, man, pwd, whoami)
+root.content.push(bin)
+
+
+const home: folder = {
+    content: [],
+    name: "home",
+    parent: root
+}
 //have to reassign username's name to user's name
+let username: folder = {
+    content: [],
+    name: "", //must reassign
+    parent: home
+}
+const Documents: folder = {
+    content: [],
+    name: "Documents",
+    parent: username //must reassign
+}
 const about_me: file = {
     content: `Hey! Thank you for visiting my site!
     My name is Panagiotis Skoulis. I am (in 2024) an 18 year old self-taught programmer that will soon start studying electrical & computer engineering @ Aristotle university of Thessaloniki
@@ -55,7 +79,7 @@ const about_me: file = {
     I also experimented with the Unity game engine, and build PCs professionaly for clients (inqueries open, see contact)
     I still tinker with all my electronics, whether that be resurrecting abandoned hardware or modding my consoles. This is my inspiration to purse hardware.`,
     name: "about_me",
-    parent: "Documents"
+    parent: Documents
 }
 const contact: file = {
     content: `Github: panos21sk
@@ -64,13 +88,13 @@ const contact: file = {
     Discord: panos21sonic
     email me for my phone number, should you desire it`,
     name: "contact",
-    parent: "Documents"
+    parent: Documents
 }
 const certificates: file = {
     content: `Astro-Pi, Proficiency in Eng, Mikroi episthmones, Hmerida Kvantikhs fysikhs, Steaming the future, Sololearn Ruby cert`,
     //TODO: Touch it up and link to google drive with imgs of my certs
     name: "certificates",
-    parent: "Documents"
+    parent: Documents
 }
 const projects:file = {
     content: `Term-portfolio: A simple barebones linux install simulation on the web built to display my work, skills and credentials while being geeky and faithful to my inspirations.
@@ -87,27 +111,16 @@ const projects:file = {
     Hosted on a private github repo, contact for access.`,
 
     name: "projects",
-    parent: "Documents"
+    parent: Documents
 }
-const Documents: folder = {
-    content: [about_me, contact, certificates, projects],
-    name: "Documents",
-    parent: "" //must reassign
-}
-let username: folder = {
-    content: [Documents],
-    name: "", //must reassign
-    parent: "home" 
-}
-const home: folder = {
-    content: [username],
-    name: "home",
-    parent: "root"
-}
-const root: folder = {
-    content: [home, bin],
-    name: "root",
-    parent: "root"
-}
+Documents.content.push(about_me, contact, certificates, projects)
+username.content.push(Documents)
+home.content.push(username)
+root.content.push(home)
+
+
+
+
+
 
 export {file, folder, root}

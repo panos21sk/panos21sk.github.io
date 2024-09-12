@@ -25,7 +25,9 @@ function parseCommand(command, uname) {
             clear();
             break;
         case "man":
-            man(commandArr[1]);
+            for (let i = 1; i < commandArr.length; i++) {
+                man(commandArr[i]);
+            }
             break;
         case "pwd":
             pwd();

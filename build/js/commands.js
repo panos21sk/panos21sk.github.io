@@ -8,6 +8,41 @@ function createP(content) {
     const initbody = document.getElementById("init");
     initbody === null || initbody === void 0 ? void 0 : initbody.append(newP);
 }
+function createManPage(content) {
+    const manElem = document.createElement("div");
+    manElem.style.position = "fixed";
+    manElem.style.top = "0";
+    manElem.style.left = "0";
+    manElem.style.height = '100vh';
+    manElem.style.width = '100vw';
+    manElem.style.backgroundColor = "#000000";
+    const newP = document.createElement("p");
+    newP.innerHTML = content;
+    manElem.appendChild(newP);
+    const helpManElem = document.createElement("div");
+    helpManElem.style.position = "fixed";
+    helpManElem.style.bottom = "2vh";
+    helpManElem.style.left = "2vh";
+    helpManElem.style.height = '1.5vh';
+    helpManElem.style.width = '96vw';
+    helpManElem.style.backgroundColor = "#AAAAAA";
+    helpManElem.style.color = "#000000";
+    helpManElem.innerHTML = `
+        <p style="margin-top:auto; margin-bottom: auto;">Click and press q to exit</p>
+    `;
+    manElem.appendChild(helpManElem);
+    manElem.tabIndex = 0;
+    const initbody = document.getElementById("init");
+    initbody === null || initbody === void 0 ? void 0 : initbody.append(manElem);
+    manElem.focus();
+    manElem.addEventListener("keydown", (e) => {
+        if (e.key == "q") {
+            initbody === null || initbody === void 0 ? void 0 : initbody.removeChild(manElem);
+            //TODO: implement this correctly: (<HTMLInputElement>initbody?.lastChild?.lastChild).focus();
+        }
+    });
+    manElem.focus();
+}
 function checkIsOption(string) {
     return true; //TODO:
 }
@@ -16,32 +51,18 @@ function help() {
     createP("Available binaries: man, pwd, whoami, cd, ls, cat, echo, sudo. Type man \'commandName\' to view explanation of what the given command does");
 }
 function man(args) {
-    const manElem = document.createElement("div");
-    manElem.style.height = '100vh';
-    manElem.style.width = '100vw';
-    manElem.style.backgroundColor = "#000000";
-    const initbody = document.getElementById("init");
-    initbody === null || initbody === void 0 ? void 0 : initbody.append(manElem);
     switch (args) {
         case "man":
-            const newP = document.createElement("p");
-            newP.innerHTML = `
-            NAME:
-                man - an interface to the system reference manuals
-            DESCRIPTION:
-                man shows uses for each command specified
-            `;
-            manElem.appendChild(newP);
+            createManPage(`
+            NAME: <br/>
+                man - an interface to the system reference manuals <br/>
+            DESCRIPTION: <br/>
+                man shows uses for each command specified <br/>`);
+            break;
         default:
             createP(`No manual entry for ${args}`);
-            initbody === null || initbody === void 0 ? void 0 : initbody.removeChild(manElem);
             break;
     }
-    manElem.addEventListener("keydown", (e) => {
-        if (e.key == "q") {
-            initbody === null || initbody === void 0 ? void 0 : initbody.removeChild(manElem);
-        }
-    });
 }
 function pwd() {
     createP(`${CurrDir.name}`);

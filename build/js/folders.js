@@ -11,23 +11,45 @@
 // |bin
 // ||all binary files
 //name must always be the same as var name to recreate the structure above
-//help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo
-const clear = { content: "", name: "clear", parent: "bin" };
-const echo = { content: "", name: "echo", parent: "bin" };
-const ls = { content: "", name: "ls", parent: "bin" };
-const cd = { content: "", name: "cd", parent: "bin" };
-const whoami = { content: "", name: "whoami", parent: "bin" };
-const pwd = { content: "", name: "pwd", parent: "bin" };
-const man = { content: "", name: "man", parent: "bin" };
-const help = { content: "", name: "help", parent: "bin" };
-const cat = { content: "", name: "cat", parent: "bin" };
+const root = {
+    content: [],
+    name: "root",
+    parent: null
+};
 //--
 const bin = {
-    content: [cat, cd, clear, echo, help, ls, man, pwd, whoami],
+    content: [],
     name: "bin",
-    parent: "root"
+    parent: root
+};
+//help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo
+const clear = { content: "", name: "clear", parent: bin };
+const echo = { content: "", name: "echo", parent: bin };
+const ls = { content: "", name: "ls", parent: bin };
+const cd = { content: "", name: "cd", parent: bin };
+const whoami = { content: "", name: "whoami", parent: bin };
+const pwd = { content: "", name: "pwd", parent: bin };
+const man = { content: "", name: "man", parent: bin };
+const help = { content: "", name: "help", parent: bin };
+const cat = { content: "", name: "cat", parent: bin };
+bin.content.push(cat, cd, clear, echo, help, ls, man, pwd, whoami);
+root.content.push(bin);
+const home = {
+    content: [],
+    name: "home",
+    parent: root
 };
 //have to reassign username's name to user's name
+let username = {
+    content: [],
+    name: "", //must reassign
+    parent: home
+};
+const Documents = {
+    content: [],
+    name: "Documents",
+    parent: username //must reassign
+};
 const about_me = {
     content: `Hey! Thank you for visiting my site!
     My name is Panagiotis Skoulis. I am (in 2024) an 18 year old self-taught programmer that will soon start studying electrical & computer engineering @ Aristotle university of Thessaloniki
@@ -40,7 +62,7 @@ const about_me = {
     I also experimented with the Unity game engine, and build PCs professionaly for clients (inqueries open, see contact)
     I still tinker with all my electronics, whether that be resurrecting abandoned hardware or modding my consoles. This is my inspiration to purse hardware.`,
     name: "about_me",
-    parent: "Documents"
+    parent: Documents
 };
 const contact = {
     content: `Github: panos21sk
@@ -49,13 +71,13 @@ const contact = {
     Discord: panos21sonic
     email me for my phone number, should you desire it`,
     name: "contact",
-    parent: "Documents"
+    parent: Documents
 };
 const certificates = {
     content: `Astro-Pi, Proficiency in Eng, Mikroi episthmones, Hmerida Kvantikhs fysikhs, Steaming the future, Sololearn Ruby cert`,
     //TODO: Touch it up and link to google drive with imgs of my certs
     name: "certificates",
-    parent: "Documents"
+    parent: Documents
 };
 const projects = {
     content: `Term-portfolio: A simple barebones linux install simulation on the web built to display my work, skills and credentials while being geeky and faithful to my inspirations.
@@ -71,27 +93,11 @@ const projects = {
     Development ceased as I thought this would be hypocritical for a first project. Also self hosted the site for a while with a node server and a DDNS.
     Hosted on a private github repo, contact for access.`,
     name: "projects",
-    parent: "Documents"
+    parent: Documents
 };
-const Documents = {
-    content: [about_me, contact, certificates, projects],
-    name: "Documents",
-    parent: "" //must reassign
-};
-let username = {
-    content: [Documents],
-    name: "", //must reassign
-    parent: "home"
-};
-const home = {
-    content: [username],
-    name: "home",
-    parent: "root"
-};
-const root = {
-    content: [home, bin],
-    name: "root",
-    parent: "root"
-};
+Documents.content.push(about_me, contact, certificates, projects);
+username.content.push(Documents);
+home.content.push(username);
+root.content.push(home);
 export { root };
 //# sourceMappingURL=folders.js.map

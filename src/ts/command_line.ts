@@ -30,7 +30,9 @@ function parseCommand(command: string, uname: string){
             break;
 
         case "man":
-            man(commandArr[1]);
+            for(let i = 1; i < commandArr.length; i++){
+                man(commandArr[i]);
+            }
             break;
 
         case "pwd":
