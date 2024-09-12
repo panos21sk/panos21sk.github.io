@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { commandInline } from "./command_line.js";
-import { root } from "folders.js";
+import { root } from "./folders.js";
 const initbody = document.getElementById("init");
 const systemd_services = new Map();
 //0: starting service, 1: OK success code, started -- GoTo ln 78

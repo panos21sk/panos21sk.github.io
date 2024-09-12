@@ -1,5 +1,5 @@
 import { commandInline } from "./command_line.js"
-import { root, folder} from "folders.js"
+import { root, folder} from "./folders.js"
 
 const initbody : HTMLElement | null = document.getElementById("init")
 const systemd_services: Map<string, number> = new Map()

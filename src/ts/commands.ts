@@ -49,10 +49,11 @@ function createManPage(content: string){
     })
     manElem.focus();
 }
+/*
 function checkIsOption(string: string): boolean{
-    return true; //TODO:
+    return true; //TODO: complete this
 }
-
+*/
 
 //commands
 function help(){
@@ -129,4 +130,4 @@ function sudo(uname: string){
     createP(`${uname} is not in the sudoers file. This incident will be reported.`)
 }
 
-export { createP, CurrDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo }
+export { createP, CurrDir, /*checkIsOption,*/ help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo }

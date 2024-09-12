@@ -43,9 +43,11 @@ function createManPage(content) {
     });
     manElem.focus();
 }
-function checkIsOption(string) {
-    return true; //TODO:
+/*
+function checkIsOption(string: string): boolean{
+    return true; //TODO: complete this
 }
+*/
 //commands
 function help() {
     createP("Available binaries: man, pwd, whoami, cd, ls, cat, echo, sudo. Type man \'commandName\' to view explanation of what the given command does");
@@ -110,5 +112,5 @@ function clear() {
 function sudo(uname) {
     createP(`${uname} is not in the sudoers file. This incident will be reported.`);
 }
-export { createP, CurrDir, checkIsOption, help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo };
+export { createP, CurrDir, /*checkIsOption,*/ help, man, pwd, whoami, cd, ls, cat, echo, clear, sudo };
 //# sourceMappingURL=commands.js.map
