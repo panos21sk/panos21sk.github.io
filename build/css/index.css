@@ -17,7 +17,7 @@ p {
 .termTextArea {
   display: flex;
   flex-direction: row;
-  vertical-align: bottom;
+  align-items: baseline;
 }
 
 textarea {

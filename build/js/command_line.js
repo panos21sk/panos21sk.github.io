@@ -63,6 +63,7 @@ function commandInline(uname) {
     cmdTextArea.focus();
     cmdTextArea === null || cmdTextArea === void 0 ? void 0 : cmdTextArea.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
+            event.preventDefault(); //do not add newline if enter is pressed
             //remove newline char
             cmdTextArea.value = cmdTextArea.value.replace(/\n|\r/g, "");
             if (cmdTextArea.value.length > 0 && !/\r|\n/.exec(cmdTextArea.value)) {

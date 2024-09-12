@@ -157,6 +157,7 @@ function init() {
         let name = ""; //global bc why not
         nameInputTextArea === null || nameInputTextArea === void 0 ? void 0 : nameInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
+                event.preventDefault(); //do not add newline if enter is pressed
                 if (nameInputTextArea.value.length > 0 && !/\r|\n/.exec(nameInputTextArea.value)) {
                     initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
                     name = nameInputTextArea.value;
@@ -193,6 +194,7 @@ function init() {
             afterNameInputTextArea.focus();
             afterNameInputTextArea === null || afterNameInputTextArea === void 0 ? void 0 : afterNameInputTextArea.addEventListener("keydown", (event) => {
                 if (event.key === 'Enter') {
+                    event.preventDefault(); //do not add newline if enter is pressed
                     //replace all linebreaks with empty string
                     afterNameInputTextArea.value = afterNameInputTextArea.value.replace(/(\r\n|\n|\r)/gm, "");
                     if (afterNameInputTextArea.value.length > 0 && !/\r|\n/.exec(afterNameInputTextArea.value)) {
@@ -219,8 +221,10 @@ function init() {
                 }
             });
         }
+        passwdInputTextArea.value = passwdInputTextArea.value.replace(/(\r\n|\n|\r)/gm, "");
         passwdInputTextArea === null || passwdInputTextArea === void 0 ? void 0 : passwdInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
+                event.preventDefault(); //do not add newline if enter is pressed
                 console.log("entering $name home");
                 passwdInputTextArea.setAttribute("disabled", "");
                 const helpP = document.createElement("p");

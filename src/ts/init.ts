@@ -159,6 +159,7 @@ async function init(){
 
     nameInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
+            (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
             if((<HTMLInputElement>nameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>nameInputTextArea).value)){
                 initbody?.appendChild(passwdTextArea);
                 name = (<HTMLInputElement>nameInputTextArea).value;
@@ -199,6 +200,7 @@ async function init(){
 
         afterNameInputTextArea?.addEventListener("keydown", (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
+            (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
             //replace all linebreaks with empty string
             (<HTMLInputElement>afterNameInputTextArea).value = (<HTMLInputElement>afterNameInputTextArea).value.replace(/(\r\n|\n|\r)/gm, "");
             
@@ -229,9 +231,10 @@ async function init(){
         })
     }
     
-
+    (<HTMLInputElement>passwdInputTextArea).value = (<HTMLInputElement>passwdInputTextArea).value.replace(/(\r\n|\n|\r)/gm, "");
     passwdInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
+            (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
             console.log("entering $name home")
             passwdInputTextArea.setAttribute("disabled", "");
             const helpP: HTMLElement = document.createElement("p")

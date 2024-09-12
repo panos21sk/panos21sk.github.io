@@ -78,6 +78,7 @@ function commandInline(uname: string){
 
     cmdTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
+            (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
             //remove newline char
             (<HTMLInputElement>cmdTextArea).value = (<HTMLInputElement>cmdTextArea).value.replace(/\n|\r/g, "")
 
