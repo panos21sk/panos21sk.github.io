@@ -1,7 +1,8 @@
 import { CurrDir, createP, sudo, help, man, pwd, whoami, cd, ls, cat, clear, echo } from "./commands.js"
+import { addToHistory, access } from "./command_history.js"
 
 function parseCommand(command: string, uname: string){
-    console.log(`parsing command ${command}`)
+    //console.log(`parsing command ${command}`)
     let commandArr: Array<string> = command.split(" ")
     // let commandMap: Map<string, number> = new Map()//k:command, v:index 
     // for (let i = 0; i < commandArr.length; i++){
@@ -76,6 +77,8 @@ function commandInline(uname: string){
     initbody?.appendChild(cmd);
     (<HTMLInputElement>cmdTextArea).focus();
 
+    let indexFromEnd: number = 0; 
+
     cmdTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
             (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
@@ -84,17 +87,32 @@ function commandInline(uname: string){
 
             if((<HTMLInputElement>cmdTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>cmdTextArea).value)){
                 var command: string = (<HTMLInputElement>cmdTextArea).value
-                console.log(command)
+                //console.log(command)
                 cmdTextArea.setAttribute("disabled", "");
+                addToHistory(command)
+                indexFromEnd = 0;
                 parseCommand(command, uname)
                 commandInline(uname)
             }
             else{
                 //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
-                console.log(`no command ${(<HTMLInputElement>cmdTextArea).value}`)
+                //console.log(`no command ${(<HTMLInputElement>cmdTextArea).value}`)
                 cmdTextArea.setAttribute("disabled", "")
                 commandInline(uname);
             }
+        }
+
+        if ((<KeyboardEvent>event).key === "ArrowUp"){
+            if(access(indexFromEnd + 1) != undefined){
+                console.log(indexFromEnd + 1);
+                (<HTMLInputElement>cmdTextArea).value = access(++indexFromEnd)
+            } else console.log("undefined: " + indexFromEnd)
+        }
+        if ((<KeyboardEvent>event).key === "ArrowDown"){
+            if(access(indexFromEnd - 1) != undefined){
+                console.log(indexFromEnd - 1);
+                (<HTMLInputElement>cmdTextArea).value = access(--indexFromEnd)
+            } else console.log("undefined: " + indexFromEnd)
         }
     });
 

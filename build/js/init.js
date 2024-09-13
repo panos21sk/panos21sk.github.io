@@ -89,7 +89,7 @@ systemd_services.set("Started Network Manager.", 1);
 systemd_services.set("Reached target Multi-User.", 1);
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("func-exec"); //!
+        //console.log("func-exec"); //!
         //const nameTextArea: HTMLElement | null = document.getElementById("name");
         //const passwdTextArea: HTMLElement | null = document.getElementById("passwd");
         //console.log(nameTextArea?.innerHTML)
@@ -114,7 +114,7 @@ function init() {
         }
         //timeout and clear
         yield new Promise(r => setTimeout(r, 750)); //ms
-        console.log("clear"); //!
+        //console.log("clear") //!
         while (initbody === null || initbody === void 0 ? void 0 : initbody.firstChild) {
             initbody.removeChild(initbody === null || initbody === void 0 ? void 0 : initbody.lastChild); // the ! means that initbody.lastChild is never null
         }
@@ -155,13 +155,14 @@ function init() {
         const passwdInputTextArea = passwdTextArea.lastElementChild;
         const nameInputTextArea = nameTextArea.lastElementChild;
         let name = ""; //global bc why not
+        let passwd = "";
         nameInputTextArea === null || nameInputTextArea === void 0 ? void 0 : nameInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault(); //do not add newline if enter is pressed
                 if (nameInputTextArea.value.length > 0 && !/\r|\n/.exec(nameInputTextArea.value)) {
                     initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea);
                     name = nameInputTextArea.value;
-                    console.log(name + name.length);
+                    //console.log(name + name.length)
                     nameInputTextArea.setAttribute("disabled", "");
                     if (passwdTextArea != null) {
                         passwdTextArea.style.visibility = "visible";
@@ -169,7 +170,7 @@ function init() {
                     passwdInputTextArea.focus(); //focus on passwd text area
                 }
                 else {
-                    console.log("Name cant be empty");
+                    //console.log("Name cant be empty")
                     //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
                     nameInputTextArea.setAttribute("disabled", "");
                     createNewName();
@@ -200,7 +201,7 @@ function init() {
                     if (afterNameInputTextArea.value.length > 0 && !/\r|\n/.exec(afterNameInputTextArea.value)) {
                         initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(passwdTextArea); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
                         name = afterNameInputTextArea.value;
-                        console.log(name + name.length);
+                        //console.log(name + name.length)
                         if (afterNameInputTextArea != null) {
                             afterNameInputTextArea.setAttribute("disabled", "");
                         }
@@ -210,9 +211,9 @@ function init() {
                         passwdInputTextArea.focus(); //focus on passwd text area
                     }
                     else {
-                        console.log("aftername is empty");
-                        console.log("length: " + afterNameInputTextArea.value.length);
-                        console.log("val: " + afterNameInputTextArea.value);
+                        //console.log("aftername is empty")
+                        //console.log("length: "+ (<HTMLInputElement>afterNameInputTextArea).value.length)
+                        //console.log("val: " + (<HTMLInputElement>afterNameInputTextArea).value)
                         if (afterNameInputTextArea != null) {
                             afterNameInputTextArea.setAttribute("disabled", "");
                         }
@@ -225,7 +226,7 @@ function init() {
         passwdInputTextArea === null || passwdInputTextArea === void 0 ? void 0 : passwdInputTextArea.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault(); //do not add newline if enter is pressed
-                console.log("entering $name home");
+                //console.log("entering $name home")
                 passwdInputTextArea.setAttribute("disabled", "");
                 const helpP = document.createElement("p");
                 helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands.";
@@ -233,6 +234,11 @@ function init() {
                 let userFolder = root.content[1].content[0];
                 userFolder.name = name;
                 commandInline(name);
+            }
+            else {
+                event.preventDefault();
+                passwd = passwd + event.key;
+                //console.log(passwd)
             }
         });
     });

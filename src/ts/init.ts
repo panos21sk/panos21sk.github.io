@@ -81,7 +81,7 @@ systemd_services.set("Started Network Manager.", 1)
 systemd_services.set("Reached target Multi-User.", 1)
 
 async function init(){
-    console.log("func-exec"); //!
+    //console.log("func-exec"); //!
 
     //const nameTextArea: HTMLElement | null = document.getElementById("name");
     //const passwdTextArea: HTMLElement | null = document.getElementById("passwd");
@@ -109,7 +109,7 @@ async function init(){
 
     //timeout and clear
     await new Promise(r => setTimeout(r, 750)) //ms
-    console.log("clear") //!
+    //console.log("clear") //!
     while (initbody?.firstChild) {
         initbody.removeChild(initbody?.lastChild!); // the ! means that initbody.lastChild is never null
     }
@@ -156,6 +156,7 @@ async function init(){
     const nameInputTextArea: Element | null  = nameTextArea.lastElementChild;
 
     let name: string = ""; //global bc why not
+    let passwd: string = "";
 
     nameInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
@@ -163,7 +164,7 @@ async function init(){
             if((<HTMLInputElement>nameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>nameInputTextArea).value)){
                 initbody?.appendChild(passwdTextArea);
                 name = (<HTMLInputElement>nameInputTextArea).value;
-                console.log(name + name.length)
+                //console.log(name + name.length)
                 nameInputTextArea.setAttribute("disabled", "");
 
                 if(passwdTextArea != null){
@@ -173,7 +174,7 @@ async function init(){
                 (<HTMLInputElement>passwdInputTextArea).focus() //focus on passwd text area
             }
             else{
-                console.log("Name cant be empty")
+                //console.log("Name cant be empty")
                 //Check empty textbox by having it have length greater than 0 and not containing \r or \n via regexp
                 nameInputTextArea.setAttribute("disabled", "")
                 createNewName();
@@ -207,7 +208,7 @@ async function init(){
             if((<HTMLInputElement>afterNameInputTextArea).value.length > 0 && !/\r|\n/.exec((<HTMLInputElement>afterNameInputTextArea).value)){
                 initbody?.appendChild((<Node>passwdTextArea)); //!what the fuck is wrong w you ts, i did the exact same shit earlier, why enfore cast here?
                 name = (<HTMLInputElement>afterNameInputTextArea).value;
-                console.log(name + name.length)
+                //console.log(name + name.length)
                 if(afterNameInputTextArea != null){
                     afterNameInputTextArea.setAttribute("disabled", "");
                 }
@@ -219,9 +220,9 @@ async function init(){
                 (<HTMLInputElement>passwdInputTextArea).focus() //focus on passwd text area
 
                 } else {
-                    console.log("aftername is empty")
-                    console.log("length: "+ (<HTMLInputElement>afterNameInputTextArea).value.length)
-                    console.log("val: " + (<HTMLInputElement>afterNameInputTextArea).value)
+                    //console.log("aftername is empty")
+                    //console.log("length: "+ (<HTMLInputElement>afterNameInputTextArea).value.length)
+                    //console.log("val: " + (<HTMLInputElement>afterNameInputTextArea).value)
                     if(afterNameInputTextArea != null){
                         afterNameInputTextArea.setAttribute("disabled", "")
                     }
@@ -235,7 +236,7 @@ async function init(){
     passwdInputTextArea?.addEventListener('keydown', (event) => {
         if ((<KeyboardEvent>event).key === 'Enter') {
             (<KeyboardEvent>event).preventDefault(); //do not add newline if enter is pressed
-            console.log("entering $name home")
+            //console.log("entering $name home")
             passwdInputTextArea.setAttribute("disabled", "");
             const helpP: HTMLElement = document.createElement("p")
             helpP.innerHTML = "Don't know where to go from here? Type \'help\' to view available commands."
@@ -245,6 +246,11 @@ async function init(){
             userFolder.name = name 
 
             commandInline(name)
+        }
+        else {
+            (<KeyboardEvent>event).preventDefault();
+            passwd = passwd + (<KeyboardEvent>event).key
+            //console.log(passwd)
         }
     })
 
