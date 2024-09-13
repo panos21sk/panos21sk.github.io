@@ -85,7 +85,7 @@ function cd(args) {
                 }
             }
         });
-        createP(`cd: The directory "${args}" does not exist`);
+        //createP(`cd: The directory "${args}" does not exist`) //TODO: 
     }
 }
 function ls( /*opts?: string, args?: string*/) {
@@ -107,7 +107,7 @@ function cat(args) {
             }
         }
     });
-    createP(`cat: ${args}: No such file or directory`);
+    //createP(`cat: ${args}: No such file or directory`) //TODO:
 }
 function echo(args) {
     createP(args);
