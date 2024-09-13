@@ -28,11 +28,11 @@ function createManPage(content: string){
     helpManElem.style.bottom = "2vh"
     helpManElem.style.left = "2vh"
     helpManElem.style.height = '1.5vh'
-    helpManElem.style.width = '96vw'
+    //helpManElem.style.width = '96vw'
     helpManElem.style.backgroundColor = "#AAAAAA"
     helpManElem.style.color = "#000000"
     helpManElem.innerHTML = `
-        <p style="margin-top:auto; margin-bottom: auto;">Click and press q to exit</p>
+        <p style="margin-top:auto; margin-bottom: auto;">Click and press q to exit. (Warning: If you're on mobile, refresh the page. This is not supposed to work on mobile to stay faithful to the source)</p>
     `;
     manElem.appendChild(helpManElem)
 
@@ -65,10 +65,82 @@ function man(args: string){
         case "man":
             createManPage(`
             NAME: <br/>
-                man - an interface to the system reference manuals <br/>
+                &emsp; man - an interface to the system reference manuals <br/>
             DESCRIPTION: <br/>
-                man shows uses for each command specified <br/>`
+                &emsp; man shows description and usage for the command specified passed in<br/>`
             )
+            break;
+
+        case "help":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; help <br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays a helper that lists out all available commands, along with signifying the importance and demonstrating the usage of man pages<br/>`
+                )
+            break;
+
+        case "pwd":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; pwd - Print Working Directory<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays the name of the directory that is used as reference for relative file paths.<br/>`
+                )
+            break;
+            
+        case "whoami":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; whoami<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays the name of your user.<br/>`
+                )
+            break;
+            
+        case "cd":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; cd - Change Directory<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Change the current working directory to be used as reference for relative file paths.<br/>`
+                )
+            break;
+            
+        case "ls":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; ls - List<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays contents of current working directory. Subdirectories end with a "/", files do not end with a "/".<br/>`
+                )
+            break;
+            
+        case "cat":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; cat - concatnate file contents to standard output<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays text content of file.<br/>`
+                )
+            break;
+            
+        case "echo":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; echo - print<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Displays whatever is passed in.<br/>`
+                )
+            break;
+            
+        case "sudo":
+            createManPage(`
+                NAME: <br/>
+                    &emsp; sudo - superuser do<br/>
+                DESCRIPTION: <br/>
+                    &emsp; Runs command as superuser, elevates privilages. User must be in sudoers file and the root user's password must be known for use.<br/>`
+                )
             break;
             
         default:
