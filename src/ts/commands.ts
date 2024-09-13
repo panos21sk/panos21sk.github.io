@@ -158,6 +158,11 @@ function whoami(name: string){
 }
 
 function cd(args: string){
+    if(!CurrDir.content.some(f => args === f.name || args === f.name + "/" || args == "..")){
+        createP(`cd: The directory \'${args}\' does not exist`);
+        return;
+    }
+
     if(args == ".." && CurrDir.parent != null){
         CurrDir = CurrDir.parent
     } else { //TODO: Add support for non relative paths
@@ -184,6 +189,10 @@ function ls(/*opts?: string, args?: string*/){
 }
 
 function cat(args: string){
+    if(!CurrDir.content.some(f => args === f.name)){
+        createP(`cat: ${args}: No such file or directory`);
+        return;
+    }
     CurrDir.content.forEach((f) => {
         if(args == f.name){
             if(!Array.isArray(f.content)){ //check if f is folder instead of file via checking whether content is an array as opposed to a string
