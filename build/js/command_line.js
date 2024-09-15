@@ -55,9 +55,15 @@ function commandInline(uname) {
     const initbody = document.getElementById("init");
     const cmd = document.createElement('div');
     cmd.innerHTML = `\
-        <p>${uname}@client:${CurrDir.name}$ </p>\
+        <p>${uname}@client:${(() => {
+        if (CurrDir.name == `${uname}`) {
+            return "~";
+        }
+        else
+            return CurrDir.name;
+    })()}$ </p>\ 
         <textarea autofocus rows="1"></textarea>\
-        `;
+        `; //i dont get why i need the () at {(()=>{})()} but its ok ig, thanks stack overflow
     cmd.className = "termTextArea";
     const cmdTextArea = cmd.lastElementChild;
     initbody === null || initbody === void 0 ? void 0 : initbody.appendChild(cmd);

@@ -129,6 +129,14 @@ function whoami(name) {
     createP(name);
 }
 function cd(args) {
+    if (args === "/") {
+        CurrDir = root;
+        return;
+    }
+    if (args === "~" || args === "$HOME") {
+        CurrDir = root.content[1].content[0];
+        return;
+    }
     if (!CurrDir.content.some(f => args === f.name || args === f.name + "/" || args == "..")) {
         createP(`cd: The directory \'${args}\' does not exist`);
         return;

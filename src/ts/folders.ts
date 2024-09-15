@@ -26,7 +26,7 @@ type folder = {
 //name must always be the same as var name to recreate the structure above
 const root: folder = {
     content: [],
-    name: "root",
+    name: "/",
     parent: null
 }
 

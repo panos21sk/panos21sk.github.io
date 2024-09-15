@@ -13,7 +13,7 @@
 //name must always be the same as var name to recreate the structure above
 const root = {
     content: [],
-    name: "root",
+    name: "/",
     parent: null
 };
 //--
