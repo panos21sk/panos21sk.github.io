@@ -93,12 +93,12 @@ const contact: file = {
 const certificates: file = {
     content: `Astro-Pi 2022-2023 Finalists<br/> 
     ECPE english certificate<br/> 
-    Μικροί επιστήμονες<br/>
-    Ημερίδα Κβαντικής φυσικής<br/>
-    Steaming the future: Placement: 2nd<br/>
+    Μικροί επιστήμονες 2023<br/>
+    Ημερίδα Κβαντικής φυσικής 2023<br/>
+    Steaming the future 2023: Placement: 2nd<br/>
     Sololearn Ruby certificate<br/>
-    Hellenic University Hack CTF: Placement: 30/70<br/>
-    CoderGames DeutscheTelekomITSolutions: Placement: 57/181. My solutions to the problems assigned are on a private github repo, contact for access`,
+    Hellenic University Hack CTF 2024: Placement: 30/70<br/>
+    CoderGames 2024 by DeutscheTelekomITSolutions: Placement: 57/181. My solutions to the problems assigned are on a private github repo, contact for access`,
     //TODO: Touch it up and link to google drive with imgs of my certs
     name: "certificates",
     parent: Documents
