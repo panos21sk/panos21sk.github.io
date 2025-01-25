@@ -132,3 +132,5 @@ dist
 # my files
 server.js
 build/index.html
+node_modules
+node_modules/

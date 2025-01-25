@@ -69,7 +69,7 @@ const Documents: folder = {
 }
 const about_me: file = {
     content: `Hey! Thank you for visiting my site! <br/>
-    My name is Panagiotis Skoulis. I am (in 2024) an 18 year old self-taught programmer that will soon start studying electrical & computer engineering @ Aristotle university of Thessaloniki <br/>
+    My name is Panagiotis Skoulis. I am (in 2024) an 18 year old self-taught programmer that is currently studying electrical & computer engineering @ Aristotle university of Thessaloniki <br/>
     I knew I wanted to pursue computer since ever since grade 5. That is when I had my first contact with programming. I was cursed, or blessed- rather, with the engineering mindset of: "Hey, I wonder how this works", or "Hey, how could I make something similar?" <br/>
     And with my "passion" at the time being videogames, I started looking into how they were made, and was fascinated by the more technical side of things like glitches. <br/>
     Everything since is history. <br/>
@@ -77,7 +77,7 @@ const about_me: file = {
     I have experience working minimally with C# and C++, a bit more experience working with python and C, and I'm working mostly with JavaScript and TypeScript (+HTML/CSS too of course) <br/>
     I have experience with React, ExpressJs, MongoDB, sass and bootstrap. I also daily drive linux on both my desktop and my laptop (EndeavourOs and Debian respectively) <br/>
     I also experimented with the Unity game engine, and build PCs professionaly for clients (inqueries open, see contact) <br/>
-    I still tinker with all my electronics, whether that be resurrecting abandoned hardware or modding my consoles. This is my inspiration to purse hardware.`,
+    I still tinker with all my electronics, whether that be resurrecting abandoned hardware or modding my consoles. This has been my inspiration to pursue hardware.`,
     name: "about_me",
     parent: Documents
 }
@@ -91,7 +91,14 @@ const contact: file = {
     parent: Documents
 }
 const certificates: file = {
-    content: `Astro-Pi, Proficiency in Eng, Mikroi episthmones, Hmerida Kvantikhs fysikhs, Steaming the future, Sololearn Ruby cert`,
+    content: `Astro-Pi 2022-2023 Finalists<br/> 
+    ECPE english certificate<br/> 
+    Μικροί επιστήμονες<br/>
+    Ημερίδα Κβαντικής φυσικής<br/>
+    Steaming the future: Placement: 2nd<br/>
+    Sololearn Ruby certificate<br/>
+    Hellenic University Hack CTF: Placement: 30/70<br/>
+    CoderGames DeutscheTelekomITSolutions: Placement: 57/181. My solutions to the problems assigned are on a private github repo, contact for access`,
     //TODO: Touch it up and link to google drive with imgs of my certs
     name: "certificates",
     parent: Documents
@@ -102,6 +109,10 @@ const projects:file = {
     <br/>
     Simple harmonic oscillation simulation: Simple Harmonic Oscillation Simulation program made using raylib in C. <br/>
     Available on github.com/panos21sk/Simple-Harmonic-Oscillation-Simulation as a public repo, and open sourced under the MIT license <br/>
+    <br/>
+    Navaduel: A 3D game made using raylib done entirely in C, made in full collaboration with a buddy of mine from uni, here is his <a href="https://github.com/syseditor">github</a>. <br/>
+    Available on github.com/panos21sk/Navaduel, it can also be built using CMake and is cross platform, with detailed instructions. <br/> 
+    This game was done as a project assigned for our structured programming course at our first semester at uni. <br/>
     <br/>
     <br/>
     UNFINISHED PROJECTS: <br/>
